@@ -5,6 +5,8 @@ function checkTotal(){
     const callback = mutations => {
         clearTimeout(timeOut);
         console.log("Fetching number, please wait..");
+        scrollValue += 1000;
+        window.scroll(0, scrollValue);
         timeOut = setTimeout(() => {
             getTotalAmount();
         }, 7000);
@@ -34,7 +36,13 @@ function getTotalAmount(){
         let valueToNumber = parseInt(valueToString);
         totalValue += valueToNumber;
     }
-    console.log("Total money spent on shopee: ", totalValue);
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "VND",
+    });
+    let totalMoney = formatter.format(totalValue);
+    console.clear();
+    console.log("Total money spent on shopee: ", totalMoney);
     return totalValue;
 }
 checkTotal();
